@@ -1,4 +1,22 @@
 module.exports = {
+	MENU_QUIENES_SOMOS:{
+		es:"Quienes somos"
+	},
+	MENU_SOMBREROS:{
+		es:"Sombreros"
+	},
+	MENU_GALERIA:{
+		es:"Galeria"
+	},
+	MENU_BLOG:{
+		es:"Blog"
+	},
+	MENU_CONTACTO:{
+		es:"Contacto"
+	},
+	ACA_PARA_ABAJO_VER_BORRAR:{
+		es:""
+	},
 	PRODUCTOS_CATALOGO_TITULO:{
 		es:"Nuestra aldea tambien produce una variedad de productos organicos y buenos para la salud!"
 	},
@@ -196,9 +214,7 @@ module.exports = {
 		fr:"Venez profiter de notre centre écologique tous les week-end !"
 	},
 	HOME_CONTENT_1:{
-		es:"Nuestro eco-centro en la naturaleza está abierto cada fin de semana para brindarle un lugar recreativo y de relajación donde toda la familia encontrará su felicidad.",
-		en:"Our eco-center in the nature is opened every week-end so that you can enjoy being in the countryside, in a place where you can have fun and relax with activities for all the family !",
-		fr:"Notre centre ecologique est ouvert chaque week-end pour que vous puissiez profiter en famille de nos espaces de jeux et de détente, avec des activités pour tous !"
+		es:"Straw Hats, se original con el objetivo de impulsar la producción del sombrero tejido con paja toquilla de Catacaos, para poder ser comercializados a nivel nacional e internacional."
 	},
 		HOME_CONTENT_2:{
 		es:"Zona de juego, piscina, zona de descanso, biblioteca.<br>                    Eco-restaurante con productos frescos y orgánicos cocinados en el momento.<br>                    Talleres y actividades variadas para aprender a toda edad sobre la permacultura, las plantas, la arcilla, la pintura o también practicar la meditación, el yoga y el tai-chi !<br>                    Visita guiada de nuestro vivero, la huerta, el centro de tratamiento de los desechos.<br>                    Escenario con música en vivo y otros espectaculos (ver programacion)<br>                    Zona de camping<br>                    Y mucho más !",
@@ -276,8 +292,8 @@ module.exports = {
 		en:"Be an eco-center self-sustained and recognized for its mission and the diversity of crops, products and services proposed to the comunity "
 	},
 	META_TITLE: {
-		en: 'Eutopía - Ecocenter',
-		es: 'Eutopía - Ecoaldea',
+		en: 'MYS - Hats',
+		es: 'MYS - Sombreros',
 		fr:'Eutopía - Centre écologique'
 	},
 	HOSPEDAJES: {

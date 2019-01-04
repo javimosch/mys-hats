@@ -2,6 +2,7 @@ module.exports = function() {
 	return {
 		name: 'images',
 		path: 'admin',
+		enabled:false,
 		context: {
 			type: 'admin',
 			init: function init() {

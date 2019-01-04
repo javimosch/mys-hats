@@ -1,4 +1,5 @@
-@import url(https://fonts.googleapis.com/css?family=Oswald);
+@import url('https://fonts.googleapis.com/css?family=Lato:700');
+
 
 body {
     /* background: url(https://subtlepatterns.com/patterns/stardust.png); */
@@ -11,8 +12,10 @@ h4,
 h5,
 h6 {
     color: #333;
-    font-family: 'Oswald', sans-serif;
+    font-family: 'Lato', sans-serif;
     box-sizing: border-box;
+    font-weight: 400;
+    
 }
 
 html,
@@ -30,11 +33,11 @@ body {
 }
 
 header {
-    background: white;
+    background-color: black;
     padding-top: 10px;
     padding-bottom: 10px;
     min-height: 50px;
-    border-bottom: 5px solid #dbe9e2;
+    
 }
 
 .contactInfo a {
@@ -172,14 +175,11 @@ form>button:active,
 }
 
 .brand {
-    font-size: 22px;
-    color: #3ac826;
-    font-family: monospace;
+      font-size: 80px;
     text-decoration: none;
-    margin: 0 auto;
-    display: block;
     text-align: center;
-    text-transform: uppercase;
+    margin:20px 20px 0px 20px;
+    color: white;
 }
 
 .groupHeader h1,
@@ -295,10 +295,47 @@ form>button:active,
     text-decoration: none;
 }
 
+.homeMessage{
+        min-height: 400px;
+    
+    
+}
+.homeMessage p{
+    line-height: 26px;
+    color: white;
+    font-size:25px;
+        background: rgba(0,0,0,.4);
+    padding: 30px;
+}
+
+.countryFlag{
+    max-width:20px;
+}
+
+.fa-facebook, .fa-instagram{
+    font-size:22px;
+}
+.fa-facebook{
+    color:#3b5998!important;
+}
+.fa-instagram{
+    color:#3f729b!important;
+}
+
 .menu li .subMenu {
     display: none;
     background-color: white;
     padding-top: 10px;
+}
+
+.brandQuote{
+        color: white;
+    text-align: center;
+    font-family: 'Lato', sans-serif;
+    font-size: 20px;
+    text-transform: uppercase;
+    letter-spacing: 13px;
+    margin-top: 0px;
 }
 
 .subMenu li {
@@ -321,7 +358,7 @@ footer ul.menu>li.socialIcons:hover>a {
 }
 
 ul.menu>li:hover>a {
-    color: black;
+    opacity:0.7;
 }
 
 .subMenu li:hover>a {
@@ -362,7 +399,7 @@ ul.menu>li {
 
 ul.menu>li>a {
     font-size: 14px;
-    color: #333;
+    color: white;
     text-decoration: none;
     font-family: sans-serif;
     margin: 0 auto;
@@ -576,10 +613,10 @@ section.admin section {
 }
 
 footer {
-    background-color: #a9f08280;
+    background-color: white;
     padding-top: 10px;
     padding-bottom: 10px;
-    margin-top: 30px;
+ 
 }
 
 .mobileCentered {
@@ -608,9 +645,16 @@ footer {
     display: block;
 }
 
+.homePageBackground{
+    background: url(/uploads/images/pagina_principal.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
 
 .groupBody {
-    margin: 50px auto;
+    margin: 0px auto;
 }
 
 .mediumImage img {
@@ -686,6 +730,7 @@ iframe {
 
 }
 @media only screen and (min-width: 992px) {
+    .brandQuote{}
     .iiLogoWrapper {
         margin-left: 15px;
         flex-basis: 70%;
@@ -847,8 +892,9 @@ iframe {
 
     .headerNav {
         display: inline-flex;
-        justify-content: flex-end;
+        justify-content: center;
         align-items: center;
+        background-color: black;
     }
 
     .menu li .subMenu {
@@ -880,7 +926,6 @@ iframe {
         display: flex;
         justify-content: flex-end;
         align-items: center;
-        margin-top: 50px;
     }
 
     .mainContent {
@@ -888,26 +933,19 @@ iframe {
     }
 
     header {
-        padding-top: 0px;
-        height: 80px;
-        display: flex;
-        align-items: center;
+
     }
 
     nav {
         display: inline-block;
-        width: 69%;
+        width: 100%;
         vertical-align: top;
         height: 56px;
         padding-right: 0;
     }
 
     .brand {
-        margin: 0 auto;
-        display: inline-block;
-        text-align: center;
-        width: 30%;
-        margin-top: 6px;
+    
     }
 
     ul.menu {
@@ -925,9 +963,10 @@ iframe {
     ul.menu>li {
         display: inline-block;
         margin-bottom: 0;
-        margin: 0px 20px;
+        padding: 0px 20px;
         position: relative;
         width: unset;
+        border-right: 1px solid white;
     }
 
     ul.menu>li>a {

@@ -1,6 +1,7 @@
 module.exports = function(options, config, context) {
 	return {
 		name: context.lang.VOLUNTARIADO,
+		enabled:false,
 		context: {
 			init: function init() {
 				new Vue({

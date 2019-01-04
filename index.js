@@ -21,11 +21,12 @@ if (argv.s || argv.server) {
     //server.git.pushPath('src/*');
 
 
-    runLocalServer();
+    //runLocalServer();
     if (argv.a || argv.api) {
 
     } else {
         compileEntireSite();
+        console.log('Site compiled');
     }
 } else {
     if (argv.b || argv.build) {
@@ -182,6 +183,10 @@ function loadHandlebarHelpers() {
         }
     });
     Handlebars.registerHelper('pagePath', function(langPath, name, options) {
+        if(!name){
+            console.log('ERROR','pagePath invalid locale')
+            return '';
+        }
         name = name.split(' ').join('-')
         name = name.normalize('NFD').replace(/[\u0300-\u036f]/g, "")
         name = name.toLowerCase();
@@ -235,6 +240,8 @@ function compileSiteOnce(options = {}) {
     const config = require('./config');
     server.partials.compile(options, config);
     server.pages.compile(options, config);
+    
+    
 
     //Index (Home page)
     const Handlebars = require('handlebars');
@@ -251,7 +258,11 @@ function compileSiteOnce(options = {}) {
     var template = Handlebars.compile(source);
     var context = config.getContext(options.language);
     context.currentLanguage = context.lang[options.language];
+    
     context.currentPage = context.defaultCurrentPage;
+    var pageContext = server.pages.getPageConfig(context.currentPage, options, config, context);
+    Object.assign(context,pageContext);
+    
     context.langPath = options.language != config.defaultLanguage ? `${options.language}/` : ``;
     var html = template(context);
     sander.writeFileSync(fileName('index.html'), html);

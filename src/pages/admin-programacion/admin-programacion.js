@@ -1,6 +1,7 @@
 module.exports = function() {
 	return {
 		name: 'programacion',
+		enabled:false,
 		path: 'admin',
 		context: {
 			type: 'admin',

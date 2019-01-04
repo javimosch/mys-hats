@@ -9,8 +9,8 @@ var self = module.exports = {
 	NODE_ENV: process.env.NODE_ENV,
 	defaultLanguage: 'es',
 	context: {
-		defaultCurrentPage: 'page_ecoaldea',
-		currentPage: 'page_ecoaldea',
+		defaultCurrentPage: 'page_pagina_principal',
+		currentPage: 'page_pagina_principal',
 		NODE_ENV: process.env.NODE_ENV,
 		API_URL: process.env.API_URL
 	},

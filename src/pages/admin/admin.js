@@ -1,11 +1,13 @@
 module.exports = function() {
 	return {
 		name: 'admin',
+		enabled:true,
 		path: '',
 		context: {
 			type: 'admin',
 			init: function init() {
 
+	/*
 				new Vue({
 					el: '.admin_login',
 					name: 'admin_login',
@@ -38,7 +40,9 @@ module.exports = function() {
 						}
 					}));
 				}
+				*/
 			}
+			
 		}
 	};
 }

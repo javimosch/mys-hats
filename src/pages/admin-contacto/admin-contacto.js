@@ -2,6 +2,7 @@ module.exports = function() {
 	return {
 		name: 'formulario-de-contacto',
 		path: 'admin',
+		enabled:false,
 		context: {
 			type: 'admin',
 			init: function init() {

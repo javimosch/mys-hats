@@ -40,19 +40,21 @@
 	    </section>
 	-->
 	{{/if}}
+	
+	
 
 	{{#if (neq type 'admin')}}
 		{{#if (eq wipMode true)}}
-			<div class="mainContent">
-				{{> page_wip}}
+			<div class="mainContent {{mainContentClass}}">
+				{{> page_wip}} 
 			</div>
 		{{else}}    
-			<div class="mainContent">
+			<div class="mainContent {{mainContentClass}}">
 				{{> (lookup . 'currentPage') }}
 			</div>
 		{{/if}}
 	{{else}}
-		<div class="mainContent">
+		<div class="mainContent {{mainContentClass}}">
 				{{> (lookup . 'currentPage') }}
 		</div>
 	{{/if}}

@@ -1,6 +1,7 @@
 module.exports = function(options, config, context) {
 	return {
 		name: context.lang.CONTACTO,
+		enabled:false,
 		context: {
 			init: function init() {
 				new Vue({
