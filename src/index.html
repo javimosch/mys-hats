@@ -5,10 +5,17 @@
 	<link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon">
 	<link rel="icon" href="/img/favicon.ico" type="image/x-icon">
 	<title>{{lang.META_TITLE}}</title>
-
+	
+	<link href="https://unpkg.com/leaflet@1.0.1/dist/leaflet.css" rel="stylesheet"/>
 	<link rel="stylesheet" type="text/css" href="/libs/noty.min.css">
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
-
+	
+	{{#ifNotEmpty pageLinks}}
+		{{#each pageLinks}}
+			<link rel="stylesheet" type="text/css" href="{{this}}">
+		{{/each}}
+	{{/ifNotEmpty}}
+	
 	{{#if (eq type 'admin')}}
 		
 	{{/if}}
@@ -22,7 +29,8 @@
 			defaultCurrentPage:'{{defaultCurrentPage}}',
 			updateCode:'{{updateCode}}',
 			wipMode: '{{wipMode}}',
-			lang: JSON.parse(`{{#stringify lang}}{{/stringify}}`)
+			lang: JSON.parse(`{{#stringify lang}}{{/stringify}}`),
+			globals: JSON.parse(`{{#stringify globals}}{{/stringify}}`)
 		}
 	</script>
 </head>
@@ -89,6 +97,12 @@
 		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.2/ace.js"></script>
 		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.2/theme-monokai.js"></script>
 	{{/if}}
+	
+	{{#ifNotEmpty pageScripts}}
+		{{#each pageScripts}}
+			<script type="text/javascript" src="{{this}}"></script>
+		{{/each}}
+	{{/ifNotEmpty}}
 
 	<!--
 	<script type="text/javascript" src="/bundle.js"></script>
