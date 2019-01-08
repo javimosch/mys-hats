@@ -122,8 +122,6 @@ function loadHandlebarHelpers() {
     var H = require('just-handlebars-helpers');
     H.registerHelpers(Handlebars);
 
-
-
     Handlebars.registerHelper('bold', function(options) {
         return new Handlebars.SafeString(
             '<div class="mybold">' +
@@ -156,9 +154,10 @@ function loadHandlebarHelpers() {
         });
         return obj;
     }
-    Handlebars.registerHelper('hasProgramations', function(obj, options) {
-        return filtrarProgramaciones(obj, options).length > 0;
-    })
+    Handlebars.registerHelper('arrayHasItems', function(obj, options) {
+        return !!obj && obj.length > 0;
+    });
+    
     Handlebars.registerHelper('filtrarProgramacion', function(obj, options) {
         return filtrarProgramaciones(obj, options);
     })
@@ -221,6 +220,14 @@ function loadHandlebarHelpers() {
     Handlebars.registerHelper('toString', function(result, options) {
         result = result.toString('utf-8');
         return new Handlebars.SafeString(result);
+    });
+    
+    Handlebars.registerHelper('ifNotEmpty', function(conditional, options) {
+      if(!!conditional) {
+        return options.fn(this);
+      } else {
+        return options.inverse(this);
+      }
     });
     /*
     Handlebars.registerHelper('if', function(conditional, options) {

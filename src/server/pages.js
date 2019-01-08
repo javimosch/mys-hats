@@ -94,7 +94,7 @@ module.exports = {
 			Handlebars.registerPartial(pageName, source);
 			Handlebars.registerPartial(`page_${pageConfig.name}`, source);
 
-			//console.log(`pages: ${pageName} registered (${options.language} ${pageConfig.name.toLowerCase()})`)
+			console.log(`pages: ${pageName} registered (${options.language} ${pageConfig.name.toLowerCase()})`)
 
 			writeFns.push(createPage(true));
 

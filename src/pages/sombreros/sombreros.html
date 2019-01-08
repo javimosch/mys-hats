@@ -1,0 +1,37 @@
+<style scoped>
+	.gallery {
+		margin: 0 auto;
+		margin-top:50px;
+		margin-bottom:50px;
+		display: block;
+		max-width:200px;
+	}
+	@media only screen and (min-width: 480px) {
+		.gallery {
+			max-width:410px;
+		}
+	}
+	@media only screen and (min-width: 768px) {
+		.gallery {
+			max-width:620px;
+		}
+	}
+	@media only screen and (min-width: 992px) {
+		.gallery {
+			max-width:830px;
+		}
+	}
+	
+	.grid-item {
+		width: 200px;
+		min-height: 100px;
+	}
+	
+	.grid-item img {
+		max-width: 100%;
+	}
+</style>
+<div class="container appScope">
+	<gallery></gallery>
+	
+</div>

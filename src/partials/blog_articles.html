@@ -1,0 +1,24 @@
+<div class="articlesListWrapper">
+    <h2 class="programacion_titulo">
+            Blog
+    </h2>
+    <ul class="list">
+        {{#each articles}}
+        <li>
+            <p class="articleDate">
+                {{#date date 'DD-MM-YYYY HH:mm' 'dddd DD [de] MMMM YYYY'}}{{/date}}
+            </p>
+
+            <div class="articleItem">
+                <img src="{{thumb}}" class="inline-block img-fluid" />
+                <div class="inline-block vertical-top" style="width:69%;">
+                    <div class="articleText column">
+                        <h3>{{title}}</h3>
+                        <p>{{{body}}}</p>
+                    </div>
+                </div>
+            </div>
+        </li>
+        {{/each}}
+    </ul>
+</div>

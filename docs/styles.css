@@ -63,6 +63,8 @@ header {
 
 .footerNav {
     display: block;
+    background-color:black;
+    padding:20px;
 }
 
 .headerNav {
@@ -175,7 +177,7 @@ form>button:active,
 }
 
 .brand {
-      font-size: 80px;
+      font-size: 55px;
     text-decoration: none;
     text-align: center;
     margin:20px 20px 0px 20px;
@@ -332,10 +334,11 @@ form>button:active,
         color: white;
     text-align: center;
     font-family: 'Lato', sans-serif;
-    font-size: 20px;
+    font-size: 8px;
     text-transform: uppercase;
     letter-spacing: 13px;
     margin-top: 0px;
+    margin-left: 17px;
 }
 
 .subMenu li {
@@ -475,6 +478,7 @@ footer ul.menu>li>a {
     color: #569b56;
     text-decoration: none;
     font-weight: bold;
+    width:20px;
 }
 
 section .title {
@@ -716,7 +720,14 @@ iframe {
     background: white;
     margin-left: calc(50% - 50px);
 }
+
 @media only screen and (min-width: 768px) {
+    .brand{
+      font-size: 65px;
+    }
+    .brandQuote{
+        font-size:16px;
+    }
     .tabletSplitTwo>div {
         flex-basis: 100%;
     }
@@ -730,7 +741,12 @@ iframe {
 
 }
 @media only screen and (min-width: 992px) {
-    .brandQuote{}
+    .brand{
+      font-size: 80px;
+    }
+    .brandQuote{
+        font-size:20px;
+    }
     .iiLogoWrapper {
         margin-left: 15px;
         flex-basis: 70%;
@@ -888,6 +904,7 @@ iframe {
 
     .footerNav {
         display: none;
+        
     }
 
     .headerNav {
@@ -1005,24 +1022,25 @@ iframe {
     display: inline-block;
 }
 
-.programacion_date {
-    background-color: cadetblue;
+.articleDate {
+    background-color: black;
+    text-align:left;
     color: white;
-    padding: 10px 0px;
+    padding: 10px 10px;
     font-size: 16px;
     font-weight: bold;
 }
 
-.programacion_item_texto {
+.articleText {
     display: flex;
     justify-content: center;
     align-items: flex-start;
     flex-basis: 100%;
 }
 
-.programacion_item {}
+.articleItem {}
 
-.programacion_item img {
+.articleItem img {
     max-width: 30%;
     min-width: 30%;
 }
@@ -1043,14 +1061,15 @@ iframe {
     margin-top: 5px;
 }
 
-.programacion {
-    max-width: 800px;
+.articlesListWrapper {
+    max-width: 992px;
     margin: 0 auto;
     min-height: 300px;
 }
 
-.programacion_titulo {
-    text-align: center;
+.sectionTitle {
+    margin-top:30px;
+    text-align: left;
 }
 
 .mx-auto{
