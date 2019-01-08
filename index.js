@@ -181,9 +181,13 @@ function loadHandlebarHelpers() {
             return str;
         }
     });
+
+    Handlebars.registerHelper('metaTitle', function(head, options) {
+        return head && head.title || 'Home';
+    });
+
     Handlebars.registerHelper('pagePath', function(langPath, name, options) {
         if(!name){
-            console.log('ERROR','pagePath invalid locale')
             return '';
         }
         name = name.split(' ').join('-')

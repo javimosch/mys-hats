@@ -4,8 +4,7 @@
 	<meta http-equiv="Pragma" content="no-cache">
 	<link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon">
 	<link rel="icon" href="/img/favicon.ico" type="image/x-icon">
-	<title>{{lang.META_TITLE}}</title>
-	
+	<title>{{#metaTitle head}}{{/metaTitle}}&nbsp;|&nbsp;{{lang.META_TITLE}}</title>
 	<link href="https://unpkg.com/leaflet@1.0.1/dist/leaflet.css" rel="stylesheet"/>
 	<link rel="stylesheet" type="text/css" href="/libs/noty.min.css">
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
@@ -25,12 +24,10 @@
 	{{/if}}
 	<script type="text/javascript">
 		window.SERVER={
-			API_URL: '{{API_URL}}',
 			defaultCurrentPage:'{{defaultCurrentPage}}',
-			updateCode:'{{updateCode}}',
-			wipMode: '{{wipMode}}',
 			lang: JSON.parse(`{{#stringify lang}}{{/stringify}}`),
-			globals: JSON.parse(`{{#stringify globals}}{{/stringify}}`)
+			globals: JSON.parse(`{{#stringify globals}}{{/stringify}}`),
+			all: JSON.parse(`{{#stringify this}}{{/stringify}}`)
 		}
 	</script>
 </head>

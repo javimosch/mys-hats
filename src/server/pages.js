@@ -94,7 +94,7 @@ module.exports = {
 			Handlebars.registerPartial(pageName, source);
 			Handlebars.registerPartial(`page_${pageConfig.name}`, source);
 
-			console.log(`pages: ${pageName} registered (${options.language} ${pageConfig.name.toLowerCase()})`)
+			//console.log(`pages: ${pageName} registered (${options.language} ${pageConfig.name.toLowerCase()})`)
 
 			writeFns.push(createPage(true));
 
@@ -115,7 +115,11 @@ module.exports = {
 					context.currentLanguage = context.lang[options.language];
 					context.currentPage = pageName;
 					context.langPath = options.language != config.defaultLanguage ? `${options.language}/` : ``;
-					var html = template(Object.assign({}, context, pageConfig.context || {}));
+					
+					let newContext = Object.assign({},context);
+					merge(newContext, pageConfig.context || {});
+
+					var html = template(newContext);
 					var writePath = path.join(basePath, pageConfig.path || '', pageConfig.name.toLowerCase(), 'index.html');
 					sander.writeFileSync(writePath, html);
 
@@ -131,3 +135,21 @@ module.exports = {
 
 	}
 };
+
+
+
+function merge(self, savedData) {
+	if(savedData===undefined){
+		return;
+	}
+	Object.keys(self).forEach(k => {
+		if (typeof self[k] === 'object' && !(self[k] instanceof Array)) {
+			merge(self[k],savedData[k]);
+		} else {
+			self[k] = savedData[k] || self[k];
+		}
+	});
+	Object.keys(savedData).filter(k=>Object.keys(self).indexOf(k)==-1).forEach(newK=>{
+		self[newK] = savedData[newK];
+	})
+}

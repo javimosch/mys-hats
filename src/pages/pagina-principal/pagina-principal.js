@@ -3,6 +3,9 @@ module.exports = function() {
 		name: 'homepage',  
 		enabled:true,
 		context: {
+			head:{
+				title:'Inicio'
+			},
 			mainContentClass:'homePageBackground' 
 		}
 	}
