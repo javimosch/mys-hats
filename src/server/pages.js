@@ -114,7 +114,6 @@ module.exports = {
 					}
 					context.currentLanguage = context.lang[options.language];
 					context.currentPage = pageName;
-					console.log('APPLY', pageConfig.context)
 					context.langPath = options.language != config.defaultLanguage ? `${options.language}/` : ``;
 					var html = template(Object.assign({}, context, pageConfig.context || {}));
 					var writePath = path.join(basePath, pageConfig.path || '', pageConfig.name.toLowerCase(), 'index.html');
