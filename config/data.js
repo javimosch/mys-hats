@@ -4,7 +4,18 @@
         "globals": {
             "hats": {
                 "images": [
-                    "https://res.cloudinary.com/dek59xj4v/image/upload/v1546901114/Strawhats/Sombrero/sombrero1.jpg"
+                    "https://res.cloudinary.com/dek59xj4v/image/upload/v1546901114/Strawhats/Sombrero/sombrero1.jpg",
+                    "https://res.cloudinary.com/dek59xj4v/image/upload/v1546901111/Strawhats/sombreros/IMG_0175.jpg",
+                    "https://res.cloudinary.com/dek59xj4v/image/upload/v1546901111/Strawhats/sombreros/IMG_0162.jpg",
+                    "https://res.cloudinary.com/dek59xj4v/image/upload/v1546901111/Strawhats/sombreros/IMG_0161.jpg",
+                    "https://res.cloudinary.com/dek59xj4v/image/upload/v1546901110/Strawhats/sombreros/IMG_0152.jpg",
+                    "https://res.cloudinary.com/dek59xj4v/image/upload/v1546901110/Strawhats/sombreros/IMG_0113.jpg",
+                    "https://res.cloudinary.com/dek59xj4v/image/upload/v1546901110/Strawhats/sombreros/IMG_0134.jpg",
+                    "https://res.cloudinary.com/dek59xj4v/image/upload/v1546901110/Strawhats/sombreros/IMG_0125.jpg",
+                    "https://res.cloudinary.com/dek59xj4v/image/upload/v1546901109/Strawhats/sombreros/IMG_0112.jpg",
+                    "https://res.cloudinary.com/dek59xj4v/image/upload/v1546901109/Strawhats/sombreros/IMG_0107.jpg",
+                    "https://res.cloudinary.com/dek59xj4v/image/upload/v1546901108/Strawhats/sombreros/IMG_0086.jpg",
+                    "https://res.cloudinary.com/dek59xj4v/image/upload/v1546901108/Strawhats/sombreros/IMG_0080.jpg"
                 ]
             }
         },
