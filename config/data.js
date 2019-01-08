@@ -2,6 +2,19 @@
     "context": {
         "defaultCurrentPage": "page_pagina_principal",
         "globals": {
+            "gallery": [
+                "https://res.cloudinary.com/dek59xj4v/image/upload/v1546901118/Strawhats/modelo/SOMBRERO_EN_REJAS.jpg",
+                "https://res.cloudinary.com/dek59xj4v/image/upload/v1546901117/Strawhats/modelo/SOMBREROS_CHALAN_3.jpg",
+                "https://res.cloudinary.com/dek59xj4v/image/upload/v1546901117/Strawhats/modelo/SOMBREROS_DE_PUNTA.jpg",
+                "https://res.cloudinary.com/dek59xj4v/image/upload/v1546901116/Strawhats/modelo/SOMBRERO_COPA_TUPIDA_2.jpg",
+                "https://res.cloudinary.com/dek59xj4v/image/upload/v1546901115/Strawhats/modelo/SOMBRERO_DE_PUNTA_3.jpg",
+                "https://res.cloudinary.com/dek59xj4v/image/upload/v1546901115/Strawhats/modelo/SOMBRERO_CUERPO_ENTERO_Y_REJAS.jpg",
+                "https://res.cloudinary.com/dek59xj4v/image/upload/v1546901115/Strawhats/modelo/SOMBRERO_EN_ESTATUA.jpg",
+                "https://res.cloudinary.com/dek59xj4v/image/upload/v1546901114/Strawhats/modelo/SOMBRERO_DE_PUNTA_2.jpg",
+                "https://res.cloudinary.com/dek59xj4v/image/upload/v1546901114/Strawhats/modelo/SOMBRERO_COPA_TUPIDA_3.jpg",
+                "https://res.cloudinary.com/dek59xj4v/image/upload/v1546901113/Strawhats/modelo/SOMBRERO_CHALAN_1.jpg",
+                "https://res.cloudinary.com/dek59xj4v/image/upload/v1546901112/Strawhats/modelo/SOMBRERO_CHALAN_2.jpg"
+            ],
             "hats": {
                 "images": [
                     "https://res.cloudinary.com/dek59xj4v/image/upload/v1546901114/Strawhats/Sombrero/sombrero1.jpg",

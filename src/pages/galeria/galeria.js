@@ -21,14 +21,23 @@ module.exports = function(options, config, context) {
 			pageScripts: ["/libs/imageviewer.min.js", "https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"],
 			init: function init() {
 				//http://ignitersworld.com/lab/imageViewer.html#example
+
+				let images = [];
+				try {
+					images = SERVER.globals.gallery;
+				} catch (err) {
+					images = window.SERVER.globals.images;
+				}
+
+
 				Vue.component('gallery', {
 					data() {
-							return {
-								grid:null,
-								items: window.SERVER.globals.images
-							}
-						},
-						template: `
+						return {
+							grid: null,
+							items: images
+						}
+					},
+					template: `
 					<div class="grid gallery">
 						
 						<div class="grid-item" v-for="item in items">
@@ -38,39 +47,39 @@ module.exports = function(options, config, context) {
 					  
 					</div>
 					`,
-					watch:{
-						images(){
-							if(!!this.grid){
-							//this.grid.masonry('layout');
+					watch: {
+						images() {
+							if (!!this.grid) {
+								//this.grid.masonry('layout');
 							}
 						}
 					},
-						mounted() {
-							this.mount();
+					mounted() {
+						this.mount();
+					},
+					methods: {
+						viewImage(evt) {
+							var el = evt.target;
+							var viewer = window.ImageViewer();
+							var imgSrc = $(el).attr('src'),
+								highResolutionImage = imgSrc;
+							viewer.show(imgSrc, highResolutionImage);
 						},
-						methods: {
-							viewImage(evt) {
-									var el = evt.target;
-									var viewer = window.ImageViewer();
-									var imgSrc = $(el).attr('src'),
-										highResolutionImage = imgSrc;
-									viewer.show(imgSrc, highResolutionImage);
-								},
-								mount() {
-									if (!window.ImageViewer || $('.grid.gallery').length === 0 || !$('.grid').masonry) {
-										return setTimeout(this.mount, 100);
-									}
-									this.grid = $('.grid.gallery').masonry({
-										gutter: 10
-										//itemSelector: '.grid-item',
-										//columnWidth:200,
-										//fitWidth: true,
-										//percentPosition: true
-									});
-									//this.grid.masonry('layout');
+						mount() {
+							if (!window.ImageViewer || $('.grid.gallery').length === 0 || !$('.grid').masonry) {
+								return setTimeout(this.mount, 100);
+							}
+							this.grid = $('.grid.gallery').masonry({
+								gutter: 10
+								//itemSelector: '.grid-item',
+								//columnWidth:200,
+								//fitWidth: true,
+								//percentPosition: true
+							});
+							//this.grid.masonry('layout');
 
-								}
 						}
+					}
 
 				})
 

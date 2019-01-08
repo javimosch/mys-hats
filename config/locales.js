@@ -1,21 +1,26 @@
 module.exports = {
+	PAGINA_PRINCIPAL_MENSAJE:{
+		es:"Straw Hats, se original con el objetivo de impulsar la producción del sombrero tejido con paja toquilla de Catacaos, para poder ser comercializados a nivel nacional e internacional"
+	},
 	MENU_QUIENES_SOMOS: {
-		es: "Quienes somos"
+		es: "Quienes somos",
+		en:"Who we are"
 	},
 	MENU_SOMBREROS: {
-		es: "Sombreros"
+		es: "Sombreros",
+		en:"Hats"
 	},
 	MENU_GALERIA: {
-		es: "Galeria"
+		es: "Galeria",
+		en:"Gallery"
 	},
 	MENU_BLOG: {
-		es: "Blog"
+		es: "Blog",
+		en:"Blog"
 	},
 	MENU_CONTACTO: {
-		es: "Contacto"
-	},
-	ACA_PARA_ABAJO_VER_BORRAR: {
-		es: ""
+		es: "Contacto",
+		en:"Contact"
 	},
 	PRODUCTOS_CATALOGO_BOTON_DESCARGA: {
 		es: "Descarga nuestro catalogo"

@@ -80,6 +80,7 @@ function compileEntireSite() {
             language: 'en',
             outputFolder: 'docs/en'
         });
+        /*
         compileSiteOnce({
             language: 'fr',
             outputFolder: 'docs/fr'
@@ -92,6 +93,7 @@ function compileEntireSite() {
             language: 'pr',
             outputFolder: 'docs/pr'
         });
+        */
     } else {
         console.log('WARN: i18N Disabled')
     }
