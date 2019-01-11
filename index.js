@@ -222,6 +222,37 @@ function loadHandlebarHelpers() {
             return false;
         }
     });
+    
+    Handlebars.registerHelper('getPosts', function(name, options) {
+        let pages = sander.readdirSync(path.join(process.cwd(),'src/pages'));
+        pages= pages.map(name=>{
+            let data = {
+                type:'page'
+            };
+            try{
+                data = JSON.parse(sander.readFileSync(path.join(process.cwd(),`src/pages`,name,`${name}.json`)).toString('utf-8'))
+            }catch(err){}
+            return {
+                name,
+                data
+            }
+            //
+        }).filter(post=>post.data.type==='post').map(post=>{
+            try{
+                post.html = sander.readFileSync(path.join(process.cwd(),`src/pages`,post.name,`${post.name}.html`)).toString('utf-8')
+            }catch(err){
+                post.html = ""
+            }
+            return post;
+        });
+        console.log('POSTS', pages)
+        return pages;
+    });
+    
+    Handlebars.registerHelper('pageHtml', function(name, options) {
+        let result = sander.readFileSync(path.join(process.cwd(),'src/pages',name,`${name}.html`)).toString('utf-8');
+        return result;
+    });
 
     Handlebars.registerHelper('toString', function(result, options) {
         result = result.toString('utf-8');

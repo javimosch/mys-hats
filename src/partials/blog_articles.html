@@ -2,6 +2,14 @@
     <h2 class="programacion_titulo">
             Blog
     </h2>
+    
+    {{#each (getPosts)}}
+        <h1>{{data.title}}</h1>
+        <article>
+            {{{html}}}
+        </article>
+    {{/each}}
+    
     <ul class="list">
         {{#each articles}}
         <li>
