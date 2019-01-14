@@ -1,3 +1,7 @@
+
+require('dotenv').config({
+    silent: true
+});
 const outputFolder = require('path').join(process.cwd(), 'docs');
 const moment = require('moment-timezone');
 const argv = require('yargs').argv;
@@ -7,44 +11,35 @@ var rimraf = server.fs.rimraf;
 const sander = require('sander');
 const path = require('path');
 
-if (argv.gitd) {
-    console.log('Deploy from temp...')
-    server.git.deploy()
-    process.exit(0);
+if (argv.s || argv.server) {
+    runLocalServer();
+    build();
+}
+if (argv.b || argv.build) {
+    build();
+}
+if (argv.w || argv.watch) {
+
+    var chokidar = require('chokidar');
+    chokidar.watch([`${__dirname}/src`,`${__dirname}/config`], {
+        ignored: /(^|[\/\\])\../,
+        ignoreInitial: true
+    }).on('change', (path, stats) => {
+        console.log('WATCH CHANGE', path);
+        build(); 
+        server.livereload.trigger();
+    }).on('add', (path, stats) => {
+        console.log('WATCH ADD', path);
+        build();
+        server.livereload.trigger();
+    });
 }
 
-if (argv.s || argv.server) {
-
-    //var testFile = path.join(process.cwd(), 'deploy.pub')
-    //var gitPath = server.git.getPath();
-    //exec(`cd ${gitPath}; cd src/static; cp ${testFile} .`)
-    //server.git.pushPath('src/*');
 
 
-    //runLocalServer();
-    if (argv.a || argv.api) {
-
-    } else {
-        compileEntireSite();
-        console.log('Site compiled');
-    }
-} else {
-    if (argv.b || argv.build) {
-        compileEntireSite();
-        console.log('Site compiled');
-    } else {
-        if (argv.d || argv.deploy) {
-            console.log('DEPRECATED (yarn deploy)')
-            return process.exit(0);
-            if (argv.a || argv.api) {
-                console.log('Commiting and deploying api')
-                exec('git add api/*; git add index.js;git commit -m "auto:api";git stash; git pull --rebase origin master; git stash pop;git push heroku master');
-            } else {
-                //compileEntireSite();
-                //exec('git add docs/*; git commit -m "deploy"; git stash; git pull --rebase origin master; git stash pop; git push origin master');
-            }
-        }
-    }
+function build() {
+    compileEntireSite();
+    console.log('Site compiled');
 }
 
 function compileEntireSite() {
@@ -67,33 +62,14 @@ function compileEntireSite() {
         }
     }
 
-    //Javascript
-    //server.webpack.compile();
-
-
-    //Generate site
     compileSiteOnce({
-        language: 'es'
+        language: 'en'
     });
     if (process.env.DISABLE_I18N !== '1') {
         compileSiteOnce({
-            language: 'en',
-            outputFolder: 'docs/en'
+            language: 'es',
+            outputFolder: 'docs/es'
         });
-        /*
-        compileSiteOnce({
-            language: 'fr',
-            outputFolder: 'docs/fr'
-        });
-        compileSiteOnce({
-            language: 'de',
-            outputFolder: 'docs/de'
-        });
-        compileSiteOnce({
-            language: 'pr',
-            outputFolder: 'docs/pr'
-        });
-        */
     } else {
         console.log('WARN: i18N Disabled')
     }
@@ -123,6 +99,11 @@ function loadHandlebarHelpers() {
 
     var H = require('just-handlebars-helpers');
     H.registerHelpers(Handlebars);
+
+
+    Handlebars.registerHelper('random', function(options) {
+        return Math.random();
+    });
 
     Handlebars.registerHelper('bold', function(options) {
         return new Handlebars.SafeString(
@@ -156,10 +137,9 @@ function loadHandlebarHelpers() {
         });
         return obj;
     }
-    Handlebars.registerHelper('arrayHasItems', function(obj, options) {
-        return !!obj && obj.length > 0;
-    });
-    
+    Handlebars.registerHelper('hasProgramations', function(obj, options) {
+        return filtrarProgramaciones(obj, options).length > 0;
+    })
     Handlebars.registerHelper('filtrarProgramacion', function(obj, options) {
         return filtrarProgramaciones(obj, options);
     })
@@ -183,19 +163,17 @@ function loadHandlebarHelpers() {
             return str;
         }
     });
-
-    Handlebars.registerHelper('metaTitle', function(head, options) {
-        return head && head.title || 'Home';
-    });
-
     Handlebars.registerHelper('pagePath', function(langPath, name, options) {
-        if(!name){
+        if (!name) {
+            //console.error('HBS pagePath no name supplied')
             return '';
         }
         name = name.split(' ').join('-')
         name = name.normalize('NFD').replace(/[\u0300-\u036f]/g, "")
         name = name.toLowerCase();
-        return `/${langPath}${name}`;
+        var str = `/${langPath}${name}`;
+        str = str.split('//').join('/');
+        return str;
     });
 
     Handlebars.registerHelper('stringify', function(obj, options) {
@@ -222,49 +200,17 @@ function loadHandlebarHelpers() {
             return false;
         }
     });
-    
-    Handlebars.registerHelper('getPosts', function(name, options) {
-        let pages = sander.readdirSync(path.join(process.cwd(),'src/pages'));
-        pages= pages.map(name=>{
-            let data = {
-                type:'page'
-            };
-            try{
-                data = JSON.parse(sander.readFileSync(path.join(process.cwd(),`src/pages`,name,`${name}.json`)).toString('utf-8'))
-            }catch(err){}
-            return {
-                name,
-                data
-            }
-            //
-        }).filter(post=>post.data.type==='post').map(post=>{
-            try{
-                post.html = sander.readFileSync(path.join(process.cwd(),`src/pages`,post.name,`${post.name}.html`)).toString('utf-8')
-            }catch(err){
-                post.html = ""
-            }
-            return post;
-        });
-        console.log('POSTS', pages)
-        return pages;
-    });
-    
-    Handlebars.registerHelper('pageHtml', function(name, options) {
-        let result = sander.readFileSync(path.join(process.cwd(),'src/pages',name,`${name}.html`)).toString('utf-8');
-        return result;
-    });
 
     Handlebars.registerHelper('toString', function(result, options) {
         result = result.toString('utf-8');
         return new Handlebars.SafeString(result);
     });
-    
     Handlebars.registerHelper('ifNotEmpty', function(conditional, options) {
-      if(!!conditional) {
-        return options.fn(this);
-      } else {
-        return options.inverse(this);
-      }
+        if (!!conditional) {
+            return options.fn(this);
+        } else {
+            return options.inverse(this);
+        }
     });
     /*
     Handlebars.registerHelper('if', function(conditional, options) {
@@ -284,8 +230,6 @@ function compileSiteOnce(options = {}) {
     const config = require('./config');
     server.partials.compile(options, config);
     server.pages.compile(options, config);
-    
-    
 
     //Index (Home page)
     const Handlebars = require('handlebars');
@@ -302,14 +246,12 @@ function compileSiteOnce(options = {}) {
     var template = Handlebars.compile(source);
     var context = config.getContext(options.language);
     context.currentLanguage = context.lang[options.language];
-    
     context.currentPage = context.defaultCurrentPage;
-    var pageContext = server.pages.getPageConfig(context.currentPage, options, config, context);
-    Object.assign(context,pageContext);
-    
     context.langPath = options.language != config.defaultLanguage ? `${options.language}/` : ``;
     var html = template(context);
-    sander.writeFileSync(fileName('index.html'), html);
+    let result = server.pages.injectHtml(html);
+    server.livereload.addPage(context.currentPage, result, context.currentLanguage, context);
+    sander.writeFileSync(fileName('index.html'), result.html);
 
 
 }
@@ -317,6 +259,21 @@ function compileSiteOnce(options = {}) {
 function runLocalServer() {
     const express = require('express');
     const app = express();
+    var appServer = require('http').Server(app);
+    
+    if (argv.w || argv.watch) {
+        var io = require('socket.io')(appServer);
+        io.on('connection', function(socket) {
+            //console.log('socket connected')
+            socket.on('reportPage',data=>{
+                server.livereload.addActivePage(data.page,data.lang);
+            });
+        });
+
+        process.io = io;
+        //console.log('socket.io waiting')
+    }
+
     var cors = require('cors')
 
     app.use(cors());
@@ -343,15 +300,65 @@ function runLocalServer() {
         createApiRoutes(app);
     }
 
-    app.listen(port, () => {
+
+    //kill port
+    /*
+        try {
+            var line = exec(`netstat -tulpn | grep LISTEN | grep 8128`);
+            if (!!line) {
+                line = line.split(':::')[1];
+                line = line.split(' ').join('').split('node').join('');
+                console.log('Killing process', line);
+                exec(`kill -9 ${line}`);
+            }
+        } catch (err) {
+            console.log('Not able to kill port:', err.stack)
+        }
+        */
+
+    if (process.env.NODE_ENV !== 'production') {
+        app.get('/livereload.js', (req, res) => {
+            server.livereload.addActivePage(req.query.page,req.query.language);
+            res.send(server.livereload.getClientScript(port));
+        })
+    }
+
+
+    appServer.listen(port, () => {
         if (argv.a || argv.api) {
             console.log(`Local server listening on port ${port}! (API MODE)`);
         } else {
             console.log(`Local server listening on port ${port}!`);
         }
     });
+    process.app = app;
 }
 
 function createApiRoutes(app) {
     require('./api')(app);
 }
+
+
+/*
+process.on('SIGINT', () => {
+    killServer();
+});
+process.on('message', (msg) => {
+    if (msg == 'shutdown') {
+        killServer();
+    }
+});
+
+function killServer() {
+    console.log('Closing server...')
+    try {
+        process.app.close(() => {
+            console.log('Server closed !!! ')
+            process.exit()
+        });
+    } catch (err) {}
+    setTimeout((e) => {
+        console.log('Forcing server close !!!', e)
+        process.exit(1)
+    }, 1000)
+}*/
