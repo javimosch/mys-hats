@@ -2,13 +2,14 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="Pragma" content="no-cache">
-	<link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon">
-	<link rel="icon" href="/img/favicon.ico" type="image/x-icon">
+	<link rel="shortcut icon" href="/uploads/images/straw-hats-icon.png" type="image/x-icon">
+	<link rel="icon" href="/uploads/images/straw-hats-icon.png" type="image/x-icon">
 	<title>{{#metaTitle head}}{{/metaTitle}}&nbsp;|&nbsp;{{lang.META_TITLE}}</title>
 	<link href="https://unpkg.com/leaflet@1.0.1/dist/leaflet.css" rel="stylesheet"/>
-	<link rel="stylesheet" type="text/css" href="/libs/noty.min.css">
-	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
-	
+	<link rel="preload" 
+	as="style" onload="this.rel='stylesheet'"
+	href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" crossorigin="anonymous">
+	<link href="https://fonts.googleapis.com/css?family=Raleway|Modern+Antiqua|Thasadith" rel="stylesheet">
 	{{#ifNotEmpty pageLinks}}
 		{{#each pageLinks}}
 			<link rel="stylesheet" type="text/css" href="{{this}}">
@@ -19,61 +20,67 @@
 		
 	{{/if}}
 	<link rel="stylesheet" type="text/css" href="/styles.css">
+</head>
+<body>
+	<div class="app">
+		{{#if (neq type 'admin')}}
+			{{> partial_header}}		
+		{{else}}
+			{{> partial_header}}
+			<!--
+			<section class="admin_header">
+		        <h3 class="brand">
+		        <a href="/">{{lang.META_TITLE}}</a>
+		         - Admin</h3>
+		        <hr>
+		    </section>
+		-->
+		{{/if}}
+		
+		
+
+		{{#if (neq type 'admin')}}
+			{{#if (eq wipMode true)}}
+				<div class="mainContent {{mainContentClass}}">
+					{{> page_wip}} 
+				</div>
+			{{else}}    
+				<div class="mainContent {{mainContentClass}}">
+					{{> (lookup . 'currentPage') }}
+				</div>
+			{{/if}}
+		{{else}}
+			<div class="mainContent {{mainContentClass}}">
+					{{> (lookup . 'currentPage') }}
+			</div>
+		{{/if}}
+			
+	    
+	    
+
+		
+
+		{{#if (neq type 'admin')}}
+			{{> partial_footer}}
+		{{else}}
+			{{> partial_footer}}
+		{{/if}}
+	</div>
+
 	{{#if (eq type 'admin')}}
 		<script type="text/javascript" src="/js/common-admin.js"></script>
 	{{/if}}
 	<script type="text/javascript">
+		window.vues = {};
 		window.SERVER={
 			defaultCurrentPage:'{{defaultCurrentPage}}',
+			currentPage: '{{currentPage}}',
+        	currentLanguage: '{{currentLanguage}}',
 			lang: JSON.parse(`{{#stringify lang}}{{/stringify}}`),
 			globals: JSON.parse(`{{#stringify globals}}{{/stringify}}`),
 			all: JSON.parse(`{{#stringify this}}{{/stringify}}`)
 		}
 	</script>
-</head>
-<body>
-	{{#if (neq type 'admin')}}
-		{{> partial_header}}		
-	{{else}}
-		{{> partial_header}}
-		<!--
-		<section class="admin_header">
-	        <h3 class="brand">
-	        <a href="/">{{lang.META_TITLE}}</a>
-	         - Admin</h3>
-	        <hr>
-	    </section>
-	-->
-	{{/if}}
-	
-	
-
-	{{#if (neq type 'admin')}}
-		{{#if (eq wipMode true)}}
-			<div class="mainContent {{mainContentClass}}">
-				{{> page_wip}} 
-			</div>
-		{{else}}    
-			<div class="mainContent {{mainContentClass}}">
-				{{> (lookup . 'currentPage') }}
-			</div>
-		{{/if}}
-	{{else}}
-		<div class="mainContent {{mainContentClass}}">
-				{{> (lookup . 'currentPage') }}
-		</div>
-	{{/if}}
-		
-    
-    
-
-	
-
-	{{#if (neq type 'admin')}}
-		{{> partial_footer}}
-	{{else}}
-		{{> partial_footer}}
-	{{/if}}
 
 	<script type="text/javascript" src="/libs/jquery-3.3.1.min.js"></script>
 

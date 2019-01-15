@@ -1,5 +1,10 @@
 {
     "type": "post",
-    "title": "Prueba uno ya 2",
-    "publicUrl": "prueba-uno-ya-2"
+    "title": "Inaguramos el sitio",
+    "publicUrl": "prueba-uno-ya-2",
+    "publishDate":"25-12-2018 15:30",
+    "author":{
+    	"email":"arancibiajav@gmail.com",
+    	"name":"Javier Leandro Arancibia"
+    }
 }

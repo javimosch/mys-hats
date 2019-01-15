@@ -1,4 +1,3 @@
-
 const path = require('path');
 const sander = require('sander');
 const Handlebars = require('handlebars');
@@ -9,7 +8,7 @@ const livereload = require('./livereload');
 
 function injectHtml(html) {
 	var result = {};
-	if (process.env.NODE_ENV!=='development') {
+	if (process.env.NODE_ENV !== 'development') {
 		const cheerio = require('cheerio')
 		const $ = cheerio.load(html)
 		result.app = $('.app').html();
@@ -38,6 +37,7 @@ module.exports = {
 		var basePath = path.join(process.cwd(), outputFolder);
 		var srcPath = path.join(process.cwd(), 'src');
 
+		var delayedFns = [];
 		var writeFns = [];
 
 		var pages = sander.readdirSync(srcFile('pages'));
@@ -74,6 +74,10 @@ module.exports = {
 				throw new Error('Invalid page name at ' + pageConfigPath);
 			}
 
+			if (pageConfig.enabled === false) {
+				return;
+			}
+
 			var normalizeName = (name, isPageFile = false) => {
 				if (!isPageFile) {
 					name = name.split('-').join('_')
@@ -93,22 +97,55 @@ module.exports = {
 			Handlebars.registerPartial(pageName, source);
 			//console.log(`pages: ${pageName} registered (${options.language} ${pageConfig.name.toLowerCase()})`)
 
-			writeFns.push(function() {
-				//Write file
-				source = sander.readFileSync(srcFile('index.html')).toString('utf-8');
-				var template = Handlebars.compile(source);
-				context.currentLanguage = context.lang[options.language];
-				context.currentPage = pageName;
-				context.langPath = options.language != config.defaultLanguage ? `${options.language}/` : ``;
-				let combinedContext = Object.assign({}, context, pageConfig.context || {});
-				var html = template(combinedContext);
-				var writePath = path.join(basePath, pageConfig.path || '', pageConfig.name.toLowerCase(), 'index.html');
-				let result = injectHtml(html);
-				livereload.addPage(context.currentPage, result, context.currentLanguage, combinedContext);
-				sander.writeFileSync(writePath, result.html);
-			})
+			writeFns.push(createPage(true));
+
+			function createPage(delay) {
+				return () => {
+					source = sander.readFileSync(srcFile('index.html')).toString('utf-8');
+					var template = null;
+					try {
+						template = Handlebars.compile(source);
+					} catch (err) {
+						if (delay) {
+							delayedFns.push(createPage(false));
+						} else {
+							throw err;
+						}
+					}
+					context.currentLanguage = context.lang[options.language];
+					context.currentPage = pageName;
+					context.langPath = options.language != config.defaultLanguage ? `${options.language}/` : ``;
+					let combinedContext = Object.assign({}, context);
+					merge(combinedContext, pageConfig.context || {});
+					var html = template(combinedContext);
+					var writePath = path.join(basePath, pageConfig.path || '', pageConfig.name.toLowerCase(), 'index.html');
+					let result = injectHtml(html);
+					livereload.addPage(context.currentPage, result, context.currentLanguage, combinedContext);
+					sander.writeFileSync(writePath, result.html);
+
+				}
+			}
 		});
 
 		writeFns.forEach(fn => fn());
+		delayedFns.forEach(fn => fn());
 	}
 };
+
+
+
+function merge(self, savedData) {
+	if (savedData === undefined) {
+		return;
+	}
+	Object.keys(self).forEach(k => {
+		if (typeof self[k] === 'object' && !(self[k] instanceof Array)) {
+			merge(self[k], savedData[k]);
+		} else {
+			self[k] = savedData[k] || self[k];
+		}
+	});
+	Object.keys(savedData).filter(k => Object.keys(self).indexOf(k) == -1).forEach(newK => {
+		self[newK] = savedData[newK];
+	})
+}

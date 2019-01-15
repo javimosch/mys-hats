@@ -9,6 +9,7 @@ var exec = server.fs.execSync;
 var rimraf = server.fs.rimraf;
 const sander = require('sander');
 const path = require('path');
+const config = require('./config');
 
 if (argv.s || argv.server) {
     runLocalServer();
@@ -20,12 +21,12 @@ if (argv.b || argv.build) {
 if (argv.w || argv.watch) {
 
     var chokidar = require('chokidar');
-    chokidar.watch([`${__dirname}/src`,`${__dirname}/config`], {
+    chokidar.watch([`${__dirname}/src`, `${__dirname}/config`], {
         ignored: /(^|[\/\\])\../,
         ignoreInitial: true
     }).on('change', (path, stats) => {
         console.log('WATCH CHANGE', path);
-        build(); 
+        build();
         server.livereload.trigger();
     }).on('add', (path, stats) => {
         console.log('WATCH ADD', path);
@@ -99,6 +100,45 @@ function loadHandlebarHelpers() {
     var H = require('just-handlebars-helpers');
     H.registerHelpers(Handlebars);
 
+    Handlebars.registerHelper('getPosts', function(name, options) {
+        let pages = sander.readdirSync(path.join(process.cwd(), 'src/pages'));
+        pages = pages.map(name => {
+            let data = {
+                type: 'page'
+            };
+            try {
+                data = JSON.parse(sander.readFileSync(path.join(process.cwd(), `src/pages`, name, `${name}.json`)).toString('utf-8'))
+            } catch (err) {}
+            return {
+                name,
+                data
+            }
+            //
+        }).filter(post => post.data.type === 'post').map(post => {
+            try {
+                post.html = sander.readFileSync(path.join(process.cwd(), `src/pages`, post.name, `${post.name}.html`)).toString('utf-8')
+                post.thumbHtml = post.html.substring(0,200) +` ...`
+            } catch (err) {
+                post.html = ""
+            }
+            return post;
+        });
+        //console.log('POSTS', pages)
+        return pages;
+    });
+
+    Handlebars.registerHelper('pageHtml', function(name, options) {
+        let result = sander.readFileSync(path.join(process.cwd(), 'src/pages', name, `${name}.html`)).toString('utf-8');
+        return result;
+    });
+
+    Handlebars.registerHelper('metaTitle', function(head, options) {
+        return head && head.title || 'Home';
+    });
+    Handlebars.registerHelper('arrayHasItems', function(obj, options) {
+        return !!obj && obj.length > 0;
+    });
+
 
     Handlebars.registerHelper('random', function(options) {
         return Math.random();
@@ -170,6 +210,7 @@ function loadHandlebarHelpers() {
         name = name.split(' ').join('-')
         name = name.normalize('NFD').replace(/[\u0300-\u036f]/g, "")
         name = name.toLowerCase();
+        //langPath = langPath.split(config.defaultLanguage||'en').join('');
         var str = `/${langPath}${name}`;
         str = str.split('//').join('/');
         return str;
@@ -226,7 +267,7 @@ function loadHandlebarHelpers() {
 function compileSiteOnce(options = {}) {
 
     //Partials and Pages
-    const config = require('./config');
+    
     server.partials.compile(options, config);
     server.pages.compile(options, config);
 
@@ -259,13 +300,13 @@ function runLocalServer() {
     const express = require('express');
     const app = express();
     var appServer = require('http').Server(app);
-    
+
     if (argv.w || argv.watch) {
         var io = require('socket.io')(appServer);
         io.on('connection', function(socket) {
             //console.log('socket connected')
-            socket.on('reportPage',data=>{
-                server.livereload.addActivePage(data.page,data.lang);
+            socket.on('reportPage', data => {
+                server.livereload.addActivePage(data.page, data.lang);
             });
         });
 
@@ -317,7 +358,7 @@ function runLocalServer() {
 
     if (process.env.NODE_ENV !== 'production') {
         app.get('/livereload.js', (req, res) => {
-            server.livereload.addActivePage(req.query.page,req.query.language);
+            server.livereload.addActivePage(req.query.page, req.query.language);
             res.send(server.livereload.getClientScript(port));
         })
     }

@@ -3,32 +3,17 @@ module.exports = function(options, config, context) {
 		name: context.lang.MENU_SOMBREROS,
 		enabled: true,
 		context: {
-			globals: {
-				images: [
-					'http://ignitersworld.com/lab/assets/images/image_viewer/2.jpg',
-					'http://ignitersworld.com/lab/assets/images/image_viewer/1.jpg',
-					'http://ignitersworld.com/lab/assets/images/image_viewer/4.jpg',
-					'http://ignitersworld.com/lab/assets/images/image_viewer/3.jpg',
-					'http://ignitersworld.com/lab/assets/images/image_viewer/2.jpg',
-					'http://ignitersworld.com/lab/assets/images/image_viewer/1.jpg',
-					'http://ignitersworld.com/lab/assets/images/image_viewer/4.jpg',
-					'http://ignitersworld.com/lab/assets/images/image_viewer/2.jpg',
-					'http://ignitersworld.com/lab/assets/images/image_viewer/1.jpg',
-					'http://ignitersworld.com/lab/assets/images/image_viewer/4.jpg'
-				]
-			},
 			pageLinks: ["/libs/imageviewer.css"],
 			pageScripts: ["/libs/imageviewer.min.js", "https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"],
 			init: function init() {
 
 				let images = [];
 				try {
-					images = SERVER.globals.hats.images;
+					images = SERVER.globals.hatsImages;
 				} catch (err) {
-					images = window.SERVER.globals.images;
 				}
 
-				Vue.component('gallery', {
+				window.vues['main'] = Vue.component('gallery', {
 					data() {
 						return {
 							grid: null,
@@ -62,6 +47,13 @@ module.exports = function(options, config, context) {
 							var imgSrc = $(el).attr('src'),
 								highResolutionImage = imgSrc;
 							viewer.show(imgSrc, highResolutionImage);
+
+							$(window).on('keyup',function(event){
+								if(event.which===27){
+									viewer.hide();
+									$(window).off('keyup')
+								}
+							})
 						},
 						mount() {
 							if (!window.ImageViewer || $('.grid.gallery').length === 0 || !$('.grid').masonry) {

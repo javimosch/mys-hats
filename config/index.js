@@ -2,21 +2,22 @@ require('dotenv').config({
 	silent: true
 });
 const dJSON = require('dirty-json');
-
+const reload = require('require-reload')(require);
 var locales = require('./locales.js');
+
 var self = module.exports = {
 	defaultOutputFolder: 'docs',
 	NODE_ENV: process.env.NODE_ENV,
-	defaultLanguage: 'es',
+	defaultLanguage: 'en',
 	context: {
-		defaultCurrentPage: 'page_pagina_principal',
-		currentPage: 'page_pagina_principal',
+		defaultCurrentPage: 'page_about_us',
 		NODE_ENV: process.env.NODE_ENV,
 		API_URL: process.env.API_URL
 	},
 	getContext: function(language) {
 		//console.log('getConfig',{language})
 		language = language || self.defaultLanguage;
+		locales = reload('./locales.js');
 
 		function collectLanguage(language) {
 			var lang = {};

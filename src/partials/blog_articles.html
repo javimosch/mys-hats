@@ -1,15 +1,25 @@
 <div class="articlesListWrapper">
+    <!--
     <h2 class="programacion_titulo">
             Blog
     </h2>
+-->
     
     {{#each (getPosts)}}
         <h1>{{data.title}}</h1>
+        <p class="articleDate">
+                {{#date data.publishDate 'DD-MM-YYYY HH:mm' 'dddd DD [de] MMMM YYYY'}}{{/date}}
+        </p>
         <article>
-            {{{html}}}
+            {{{thumbHtml}}}
+    
         </article>
+        <div>
+                <a href="{{#pagePath langPath data.publicUrl}}{{/pagePath}}">Leer el articulo completo</a>
+        </div>
     {{/each}}
     
+    <!---
     <ul class="list">
         {{#each articles}}
         <li>
@@ -29,4 +39,5 @@
         </li>
         {{/each}}
     </ul>
+-->
 </div>

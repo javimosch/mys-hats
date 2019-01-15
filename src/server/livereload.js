@@ -34,6 +34,8 @@ socket.on('connect', function() {
     });
 });
 socket.on('reload',(data)=>{
+
+	console.log('reload')
     
     if(Object.keys(window.vues).length>0 && window.pageInit){
     	Object.keys(window.vues).forEach((k)=>{
