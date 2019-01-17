@@ -8,7 +8,7 @@ const livereload = require('./livereload');
 
 function injectHtml(html) {
 	var result = {};
-	if (process.env.NODE_ENV !== 'development') {
+	if (process.env.NODE_ENV !== 'production') {
 		const cheerio = require('cheerio')
 		const $ = cheerio.load(html)
 		result.app = $('.app').html();
