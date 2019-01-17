@@ -86,6 +86,19 @@
 	<script type="text/javascript" src="/libs/jquery-3.3.1.min.js"></script>
 
 	{{#if (eq NODE_ENV 'production')}}
+
+
+		<!-- Global site tag (gtag.js) - Google Analytics -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=UA-60303213-14"></script>
+		<script>
+		  window.dataLayer = window.dataLayer || [];
+		  function gtag(){dataLayer.push(arguments);}
+		  gtag('js', new Date());
+		  gtag('config', 'UA-60303213-14');
+		</script>
+
+
+
 		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.21/vue.min.js"></script>
 	{{else}}
 		<script type="text/javascript" src="/libs/vue.js"></script>
