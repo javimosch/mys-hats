@@ -9,7 +9,8 @@
 	<link rel="preload" 
 	as="style" onload="this.rel='stylesheet'"
 	href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" crossorigin="anonymous">
-	<link href="https://fonts.googleapis.com/css?family=Raleway|Modern+Antiqua|Thasadith" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="/libs/noty.min.css">
+	<link href="https://fonts.googleapis.com/css?family=Modern+Antiqua|Thasadith|ZCOOL+XiaoWei" rel="stylesheet">
 	{{#ifNotEmpty pageLinks}}
 		{{#each pageLinks}}
 			<link rel="stylesheet" type="text/css" href="{{this}}">
@@ -115,6 +116,7 @@
 		{{#if (typeIs init 'function')}}
 			{{#toString init}}{{/toString}}
 			if(!!init){
+				window.pageInit = init;
 				init();
 			}
 		{{/if}}

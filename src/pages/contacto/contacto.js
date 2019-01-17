@@ -9,7 +9,7 @@ module.exports = function(options, config, context) {
 					template: `<div id="osm-map"></div>`,
 					methods: {
 						mount() {
-							console.log('RENDER!') 
+							console.log('RENDER!')
 							if (!window.L) {
 								return setTimeout(this.render, 100);
 							}
@@ -38,8 +38,8 @@ module.exports = function(options, config, context) {
 							L.marker(target).addTo(map);
 						}
 					},
-					created(){
-						console.log('map CREATED')	
+					created() {
+						console.log('map CREATED')
 					},
 					mounted() {
 						console.log('map mounted')
@@ -47,7 +47,8 @@ module.exports = function(options, config, context) {
 					}
 				});
 
-				new Vue({
+				window.vues = window.vues || {};
+				window.vues['main'] = new Vue({
 					el: '.appScope',
 					name: 'contact',
 					data() {
@@ -63,7 +64,7 @@ module.exports = function(options, config, context) {
 					methods: {
 						send(e) {
 
-							return; //disabled, WIP
+							
 
 							e.stopPropagation();
 							if (!this.form.name || !this.form.email) {
@@ -75,7 +76,34 @@ module.exports = function(options, config, context) {
 								}
 								return;
 							}
-							this.sending = true;
+							this.sending = false;
+
+							fetch('https://cms.misitioba.com/api/forms/submit/strawhatsContactForm?token=e420e46dfc002280d5ffee7be5e9e0', {
+									method: 'post',
+									headers: {
+										'Content-Type': 'application/json'
+									},
+									body: JSON.stringify({
+										form: Object.assign({}, this.form)
+									})
+								})
+								.then(entry => entry.json())
+								.then(entry => console.log(entry));
+
+							this.form.name='';
+							this.form.email='';
+							this.form.message='';
+
+							new Noty({
+								layout: 'bottomRight',
+								text: window.SERVER.lang.CONTACT_MESSAGE_SEND_SUCCESS,
+								type: 'info',
+								killer: true,
+								timeout:5000
+							}).show();
+
+							return;// just send to cms for now
+
 							$.ajax({
 								url: `${SERVER.API_URL}/api/formularioContacto/save`,
 								data: JSON.stringify(Object.assign({}, this.form)),

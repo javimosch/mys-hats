@@ -1,4 +1,8 @@
 module.exports = {
+	CONTACT_MESSAGE_SEND_SUCCESS:{
+		en:"Thanks for getting in touch with us!",
+		es:"Gracias por ponerte en contacto !"
+	},
 	PAGINA_PRINCIPAL_MENSAJE:{
 		en:"Straw Hats, se original con el objetivo de impulsar la producción del sombrero tejido con paja toquilla de Catacaos, para poder ser comercializados a nivel nacional e internacional",
 		es:"Straw Hats, se original con el objetivo de impulsar la producción del sombrero tejido con paja toquilla de Catacaos, para poder ser comercializados a nivel nacional e internacional"
