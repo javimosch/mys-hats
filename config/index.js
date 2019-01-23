@@ -43,6 +43,9 @@ var self = module.exports = {
 		});
 		result.currentLanguage = result.lang[language];
 		result.currentLanguageCode = language;
+		result.globals=result.globals||{}
+		result.globals.currentLanguage=result.currentLanguage
+		result.globals.currentLanguageCode=result.currentLanguageCode
 		return result;
 	}
 };

@@ -1,4 +1,12 @@
 module.exports = {
+	BACK_BUTTON:{
+		en:"Go Back",
+		es:"Atras"
+	},
+	ARTICLES_READ_MORE:{
+		en:"Read more",
+		es:"Leer mas"
+	},
 	COLLECTIONS_HEADER_MESSAGE:{
 		en:"Handmade Strawhats produced in Catacaos with a knowledge transmited though generations."
 	},

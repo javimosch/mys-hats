@@ -78,7 +78,7 @@ module.exports = function(options, config, context) {
 							}
 							this.sending = false;
 
-							fetch('https://cms.misitioba.com/api/forms/submit/strawhatsContactForm?token=e420e46dfc002280d5ffee7be5e9e0', {
+							fetch('https://cms.misitioba.com/api/forms/submit/strawhatsContactForm?token=c0645e386821af8fbc2c7f4eb4a014', {
 									method: 'post',
 									headers: {
 										'Content-Type': 'application/json'

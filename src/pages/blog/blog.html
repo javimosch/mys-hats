@@ -1,3 +1,26 @@
-<section class="container">
-    {{> partial_blog_articles}}
+<section class="container appScope BlogArticlesWrapper">
+
+ 	<div class="BlogArticle" v-for="entry in entries" v-show="!isDetail">
+        <h1 v-html="entry.title"></h1>
+        <p class="articleDate" v-html="entryDate(entry)"></p>
+        <article>
+            <p v-html="entry.excerpt"></p>
+            <p>
+                <a class="clickable" @click="readMore(entry)">
+                	{{lang.ARTICLES_READ_MORE}}
+            	</a>
+            </p>
+        </article>
+    </div>
+
+    
+    <div class="BlogArticle" v-show="isDetail">
+    	<button class="btn" @click="goBack()">{{lang.BACK_BUTTON}}</button>
+        <h1 v-html="entry.title"></h1>
+        <p class="articleDate" v-html="entryDate(entry)"></p>
+        <article>
+            <p v-html="entry.content"></p>
+        </article>
+    </div>
+   
 </section>

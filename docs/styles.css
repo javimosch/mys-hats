@@ -13,6 +13,7 @@ h1,
 h2,
 h3 {
     font-family: 'Thasadith', sans-serif;
+    border: 0px;
 }
 
 p,
@@ -115,7 +116,28 @@ body {
     min-height: calc(100vh);
 }
 
-
+.clickable{
+    cursor:pointer;
+}
+.BlogArticle a{
+    color:blue;
+}
+.BlogArticlesWrapper{}
+.BlogArticle{
+    padding: 30px;
+    max-width: 768px;
+    margin: 0 auto;
+}
+.BlogArticle h1{
+    margin-bottom: 5px;
+}
+.BlogArticle article{ 
+    padding: 0px;
+}
+.BlogArticle p,.BlogArticle h1,.BlogArticle h2,.BlogArticle h3,.BlogArticle h4,
+.BlogArticle h5,.BlogArticle h6,.BlogArticle span{
+    color:black;
+}
 
 body {
     /* background: url(https://subtlepatterns.com/patterns/stardust.png); */
@@ -304,7 +326,7 @@ header {
 
 .footerNav {
     display: block;
-    background-color: black;
+    background-color: #361f12e0;
     padding: 20px;
 }
 
@@ -373,7 +395,7 @@ form>label {
     padding-bottom: 5px;
     padding-top: 10px;
     text-align: left;
-    color: white;
+    color: black;
 }
 
 .eventItem {
@@ -1436,7 +1458,7 @@ iframe {
     background-color: #ffffff;
     text-align: left;
     color: black;
-    padding: 10px 10px;
+    padding: 10px 0px;
     font-size: 12px;
     font-weight: bold;
     margin: 0px;
