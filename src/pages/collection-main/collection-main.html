@@ -1,0 +1,45 @@
+<div class="container appScope CenteredContainer collection">
+    
+    <div class="CollectionMainImageWrapper">
+	    <div class="CollectionMainImage">
+	        <img :src="main" @click="viewImage($event)"/>
+		</div>
+        <div class="CollectionMainImageText">
+            {{lang.COLLECTIONS_HEADER_MESSAGE}}
+        </div>
+    </div>
+
+    <h2 class="c_title mobileCentered">{{lang.OUR_COLLECTION}}</h2>
+
+	<div class="CollectionTypeWrapper">
+		<h2 class="ctw_title">Women</h2>
+		<div class="image-list">
+            
+            {{#each globals.collections.womenCategories}}
+                <div class="image-list-item" v-if="false">
+                    <a href="{{#pagePath langPath ''}}{{/pagePath}}{{url}}">
+                        <img src="{{image}}"/>
+                        <p class="ctw_cat">{{title}}</p>
+                    </a>
+                </div>    
+            {{/each}}
+
+		    <div class="image-list-item" v-for="item in womenCategories">
+		        <img :src="item.image"/>
+		        <p class="ctw_cat" v-html="item.title"></p>
+			</div>
+
+		</div>
+	</div>
+
+	<div class="CollectionTypeWrapper">
+    	<h2 class="ctw_title">Men</h2>
+    	<div class="image-list">
+        	<div class="image-list-item" v-for="item in men.main">
+            	<img :src="item.url" @click="viewImage($event)"/>
+            	<p class="ctw_cat" v-html="item.cat"></p>
+    		</div>
+        </div>
+    </div>
+
+</div>

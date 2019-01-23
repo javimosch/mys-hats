@@ -12,14 +12,18 @@ const path = require('path');
 const config = require('./config');
 
 if (argv.s || argv.server) {
-    runLocalServer();
-    build();
+    runLocalServer().then(()=>{
+        build();
+    });
 }
 if (argv.b || argv.build) {
     build();
 }
 if (argv.w || argv.watch) {
-
+    if(!(argv.s || argv.server)){
+        build();
+        console.log('Only watching...')
+    }
     var chokidar = require('chokidar');
     chokidar.watch([`${__dirname}/src`, `${__dirname}/config`], {
         ignored: /(^|[\/\\])\../,
@@ -62,6 +66,7 @@ function compileEntireSite() {
         }
     }
 
+    console.log('BUILD 1/2')
     compileSiteOnce({
         language: 'en'
     });
@@ -71,8 +76,9 @@ function compileEntireSite() {
             outputFolder: 'docs/es'
         });
     } else {
-        console.log('WARN: i18N Disabled')
+        //console.log('WARN: i18N Disabled')
     }
+    console.log('BUILD 2/2')
 
     //manifest
     sander.writeFileSync(path.join(outputFolder, 'manifest.json'), JSON.stringify({
@@ -117,7 +123,7 @@ function loadHandlebarHelpers() {
         }).filter(post => post.data.type === 'post').map(post => {
             try {
                 post.html = sander.readFileSync(path.join(process.cwd(), `src/pages`, post.name, `${post.name}.html`)).toString('utf-8')
-                post.thumbHtml = post.html.substring(0,200) +` ...`
+                post.thumbHtml = post.html.substring(0, 200) + ` ...`
             } catch (err) {
                 post.html = ""
             }
@@ -267,7 +273,7 @@ function loadHandlebarHelpers() {
 function compileSiteOnce(options = {}) {
 
     //Partials and Pages
-    
+
     server.partials.compile(options, config);
     server.pages.compile(options, config);
 
@@ -297,81 +303,65 @@ function compileSiteOnce(options = {}) {
 }
 
 function runLocalServer() {
-    const express = require('express');
-    const app = express();
-    var appServer = require('http').Server(app);
+    return new Promise((resolve, reject) => {
+        const express = require('express');
+        const app = express();
+        var appServer = require('http').Server(app);
 
-    if (argv.w || argv.watch) {
-        var io = require('socket.io')(appServer);
-        io.on('connection', function(socket) {
-            //console.log('socket connected')
-            socket.on('reportPage', data => {
-                server.livereload.addActivePage(data.page, data.lang);
+        if (argv.w || argv.watch) {
+            var io = require('socket.io')(appServer);
+            io.on('connection', function(socket) {
+                //console.log('socket connected')
+                socket.on('reportPage', data => {
+                    server.livereload.addActivePage(data.page, data.lang);
+                });
             });
-        });
-
-        process.io = io;
-        //console.log('socket.io waiting')
-    }
-
-    var cors = require('cors')
-
-    app.use(cors());
-
-    var bodyParser = require('body-parser')
-
-    // parse application/x-www-form-urlencoded
-    app.use(bodyParser.urlencoded({
-        extended: true
-    }))
-
-    // parse application/json
-    app.use(bodyParser.json())
-
-    const port = process.env.PORT || 3000;
-
-    if (argv.a || argv.api) {
-        app.get('/', function(req, res) {
-            return res.send('API OK');
-        });
-        createApiRoutes(app);
-    } else {
-        app.use('/', express.static(outputFolder));
-        createApiRoutes(app);
-    }
-
-
-    //kill port
-    /*
-        try {
-            var line = exec(`netstat -tulpn | grep LISTEN | grep 8128`);
-            if (!!line) {
-                line = line.split(':::')[1];
-                line = line.split(' ').join('').split('node').join('');
-                console.log('Killing process', line);
-                exec(`kill -9 ${line}`);
-            }
-        } catch (err) {
-            console.log('Not able to kill port:', err.stack)
+            process.io = io;
         }
-        */
 
-    if (process.env.NODE_ENV !== 'production') {
-        app.get('/livereload.js', (req, res) => {
-            server.livereload.addActivePage(req.query.page, req.query.language);
-            res.send(server.livereload.getClientScript(port));
-        })
-    }
+        var cors = require('cors')
 
+        app.use(cors());
 
-    appServer.listen(port, () => {
+        var bodyParser = require('body-parser')
+
+        // parse application/x-www-form-urlencoded
+        app.use(bodyParser.urlencoded({
+            extended: true
+        }))
+
+        // parse application/json
+        app.use(bodyParser.json())
+
+        const port = process.env.PORT || 3000;
+
         if (argv.a || argv.api) {
-            console.log(`Local server listening on port ${port}! (API MODE)`);
+            app.get('/', function(req, res) {
+                return res.send('API OK');
+            });
+            createApiRoutes(app);
         } else {
-            console.log(`Local server listening on port ${port}!`);
+            app.use('/', express.static(outputFolder));
+            createApiRoutes(app);
         }
-    });
-    process.app = app;
+        if (process.env.NODE_ENV !== 'production') {
+            app.get('/livereload.js', (req, res) => {
+                server.livereload.addActivePage(req.query.page, req.query.language);
+                res.send(server.livereload.getClientScript(port));
+            })
+        }
+
+
+        appServer.listen(port, () => {
+            if (argv.a || argv.api) {
+                console.log(`Local server listening on port ${port}! (API MODE)`);
+            } else {
+                console.log(`Local server listening on port ${port}!`);
+            }
+            resolve();
+        });
+        process.app = app;
+    })
 }
 
 function createApiRoutes(app) {

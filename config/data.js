@@ -15,6 +15,36 @@
                 "https://res.cloudinary.com/dek59xj4v/image/upload/v1546901113/Strawhats/modelo/SOMBRERO_CHALAN_1.jpg",
                 "https://res.cloudinary.com/dek59xj4v/image/upload/v1546901112/Strawhats/modelo/SOMBRERO_CHALAN_2.jpg"
             ],
+            "collections": {
+                "main": "https://res.cloudinary.com/dek59xj4v/image/upload/v1546901114/Strawhats/sombreros/sombrero1.jpg",
+                "womenCategories":[
+                        {
+                            "title":"Finos",
+                            "url":"sombreros-finos",
+                            "image":"https://res.cloudinary.com/dek59xj4v/image/upload/v1546901111/Strawhats/sombreros/IMG_0175.jpg"
+                        },
+                        {
+                            "title":"Coloridos",
+                            "image":"https://res.cloudinary.com/dek59xj4v/image/upload/v1546901111/Strawhats/sombreros/IMG_0175.jpg"
+                        },
+                        {
+                            "title":"Con cinta",
+                            "image":"https://res.cloudinary.com/dek59xj4v/image/upload/v1546901111/Strawhats/sombreros/IMG_0175.jpg"
+                        },
+                        {
+                            "title":"Varios",
+                            "image":"https://res.cloudinary.com/dek59xj4v/image/upload/v1546901111/Strawhats/sombreros/IMG_0175.jpg"
+                        }
+                    ],
+                "men": {
+                    "main": [
+                        "https://res.cloudinary.com/dek59xj4v/image/upload/v1546901109/Strawhats/sombreros/IMG_0112.jpg",
+                        "https://res.cloudinary.com/dek59xj4v/image/upload/v1546901109/Strawhats/sombreros/IMG_0107.jpg",
+                        "https://res.cloudinary.com/dek59xj4v/image/upload/v1546901108/Strawhats/sombreros/IMG_0086.jpg",
+                        "https://res.cloudinary.com/dek59xj4v/image/upload/v1546901108/Strawhats/sombreros/IMG_0080.jpg"
+                    ]
+                }
+            },
             "hatsImages": [
                 "https://res.cloudinary.com/dek59xj4v/image/upload/v1546901111/Strawhats/sombreros/IMG_0175.jpg",
                 "https://res.cloudinary.com/dek59xj4v/image/upload/v1546901111/Strawhats/sombreros/IMG_0162.jpg",

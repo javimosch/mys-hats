@@ -1,4 +1,7 @@
 module.exports = {
+	COLLECTIONS_HEADER_MESSAGE:{
+		en:"Handmade Strawhats produced in Catacaos with a knowledge transmited though generations."
+	},
 	CONTACT_MESSAGE_SEND_SUCCESS:{
 		en:"Thanks for getting in touch with us!",
 		es:"Gracias por ponerte en contacto !"
@@ -14,6 +17,10 @@ module.exports = {
 	MENU_SOMBREROS: {
 		es: "Collecciones",
 		en:"Collections"
+	},
+	OUR_COLLECTION:{
+		en:"Our collection",
+		es:"Nuestra colleccion"
 	},
 	MENU_GALERIA: {
 		es: "Galeria",

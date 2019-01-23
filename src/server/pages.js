@@ -17,7 +17,11 @@ function injectHtml(html) {
 			<script src="https://cdn.jsdelivr.net/npm/socket.io-client@2.2.0/dist/socket.io.slim.min.js"></script>
 			<script>
 				fetch('/livereload.js?page='+window.SERVER.currentPage+'&language='+window.SERVER.currentLanguage).then(r=>r.text()).then(data=>{
-					eval(data);
+					try{
+						eval(data);
+					}catch(err){
+						console.warn('Unable to load livereload script...');
+					}
 				})
 			</script>
 		`);
