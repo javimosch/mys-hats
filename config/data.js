@@ -16,7 +16,7 @@
                 "https://res.cloudinary.com/dek59xj4v/image/upload/v1546901112/Strawhats/modelo/SOMBRERO_CHALAN_2.jpg"
             ],
             "collections": {
-                "main": "https://res.cloudinary.com/dek59xj4v/image/upload/v1546901114/Strawhats/sombreros/sombrero1.jpg",
+                "main": "https://res.cloudinary.com/dek59xj4v/image/upload/v1546901102/Strawhats/proceso-fabricacion/_MG_0601-web.jpg",
                 "womenCategories":[
                         {
                             "title":"Finos",
