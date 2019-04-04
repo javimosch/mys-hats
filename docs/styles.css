@@ -91,7 +91,7 @@ body {
 
 .RightBackgroundLeftText {
     min-height: calc(100vh);
-    background-color: #daa520d6;
+    background-color: #8e4d27;
 }
 
 .RightBackgroundLeftText .text {
@@ -168,6 +168,9 @@ body {
     margin: 0px;
 }
 
+.AboutUsIntro h2{
+    color:white;
+}
 .AboutUsIntro {
     background: url(https://res.cloudinary.com/dek59xj4v/image/upload/v1546901097/Strawhats/artesanas-retratos/_MG_1674-web.jpg);
     background-size: cover;
@@ -178,7 +181,7 @@ body {
 
 .titleUnderline {
     height: 1px;
-    border-bottom: 5px solid #daa520;
+    border-bottom: 5px solid #361f12;
     width: 100%;
 }
 
@@ -266,7 +269,7 @@ footer a {
 }
 .CollectionMainImage img{
     max-width: 100%;
-    max-height: calc(80vh);
+/*    max-height: calc(80vh);*/
     margin: 0 auto;
     display: block;
 }
@@ -297,7 +300,7 @@ header {
     display: flex;
     flex-direction: column;
     align-items: center;
-    border-bottom: 5px solid goldenrod;
+    border-bottom: 5px solid #361f12;
 }
 
 .contactInfo{
@@ -1345,7 +1348,7 @@ iframe {
         display: inline-flex;
         justify-content: center;
         align-items: center;
-        background-color: #361f12;
+        background-color: #8e4d27;
     }
 
     .menu li .subMenu {
